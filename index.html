@@ -1,1 +1,109 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Sexta do Café ☕</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background: #f5f0eb;
+      margin: 0;
+      padding: 0;
+      color: #3e2723;
+    }
+    header {
+      background-color: #6f4e37;
+      color: #fff;
+      padding: 1.5rem;
+      text-align: center;
+    }
+    main {
+      padding: 2rem;
+      max-width: 600px;
+      margin: auto;
+      background-color: #fff;
+      border-radius: 12px;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    }
+    h1, h2 {
+      color: #4e342e;
+    }
+    .card {
+      background-color: #efebe9;
+      padding: 1rem;
+      border-radius: 8px;
+      margin-top: 1rem;
+    }
+    .valor {
+      font-size: 1.5rem;
+      font-weight: bold;
+      color: #795548;
+    }
+    footer {
+      text-align: center;
+      margin-top: 2rem;
+      color: #8d6e63;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Sexta do Café ☕</h1>
+    <p>Cada sexta, uma dupla diferente! Vamos deixar tudo mais gostoso ☕🍪</p>
+  </header>
+  <main>
+    <h2>Próxima Sexta-feira:</h2>
+    <div class="card">
+      <p><strong>Data:</strong> <span id="data-sexta"></span></p>
+      <p><strong>Dupla responsável:</strong> <span id="dupla"></span></p>
+      <p><strong>Valor da Semana:</strong> <span class="valor">R$ 75,00</span></p>
+    </div>
+
+    <h2>Ordem das Duplas:</h2>
+    <ul id="lista-duplas"></ul>
+  </main>
+  <footer>
+    <p>Site desenvolvido para a equipe com muito carinho ☕</p>
+  </footer>
+
+  <script>
+    const duplas = [
+      "Carlão e Gleison",
+      "Guilherme e Sidney",
+      "Márcio e Maicon",
+      "Igo e Gabriel",
+      "Gustavo e Deyse",
+      "Jaqueline e Daniel",
+      "Tiago e Matheus"
+    ];
+
+    function getNextFriday() {
+      const today = new Date();
+      const nextFriday = new Date();
+      nextFriday.setDate(today.getDate() + ((5 - today.getDay() + 7) % 7 || 7));
+      return nextFriday;
+    }
+
+    function getWeekNumber(date) {
+      const start = new Date(date.getFullYear(), 0, 1);
+      const days = Math.floor((date - start) / (24 * 60 * 60 * 1000));
+      return Math.ceil((date.getDay() + 1 + days) / 7);
+    }
+
+    const sexta = getNextFriday();
+    document.getElementById('data-sexta').textContent = sexta.toLocaleDateString('pt-BR');
+
+    const semanaIndex = getWeekNumber(sexta) % duplas.length;
+    document.getElementById('dupla').textContent = duplas[semanaIndex];
+
+    const listaEl = document.getElementById('lista-duplas');
+    duplas.forEach((dupla, index) => {
+      const li = document.createElement('li');
+      li.textContent = `${index + 1}. ${dupla}`;
+      listaEl.appendChild(li);
+    });
+  </script>
+</body>
+</html>
 
