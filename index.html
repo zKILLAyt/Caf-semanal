@@ -69,16 +69,17 @@
 
   <script>
     const duplas = [
-      "Carlão e Gleison",
-      "Guilherme e Sidney",
-      "Márcio e Maicon",
+    
       "Igo e Gabriel",
       "Gustavo e Deyse",
       "Jaqueline e Daniel",
       "Tiago e Matheus"
+      "Carlão e Gleison",
+      "Guilherme e Sidney",
+      "Márcio e Maicon"
     ];
 
-    // Função para encontrar a próxima sexta-feira
+   
     function getNextFriday() {
       const today = new Date();
       const nextFriday = new Date(today);
@@ -86,10 +87,10 @@
       return nextFriday;
     }
 
-    // Defina a primeira sexta-feira que iniciou o ciclo
+    
     const sextaInicial = new Date("2024-06-28"); // ajuste se necessário
 
-    // Função para calcular semanas passadas desde a sexta inicial
+    
     function getWeeksPassed(fromDate, toDate) {
       const diffTime = toDate - fromDate;
       const diffWeeks = Math.floor(diffTime / (7 * 24 * 60 * 60 * 1000));
@@ -100,7 +101,7 @@
     const semanasPassadas = getWeeksPassed(sextaInicial, proximaSexta);
     const duplaIndex = semanasPassadas % duplas.length;
 
-    // Atualiza os dados no HTML
+   
     document.getElementById("data-sexta").textContent = proximaSexta.toLocaleDateString("pt-BR");
     document.getElementById("dupla").textContent = duplas[duplaIndex];
 
