@@ -78,32 +78,38 @@
       "Tiago e Matheus"
     ];
 
+    // Função para encontrar a próxima sexta-feira
     function getNextFriday() {
       const today = new Date();
-      const nextFriday = new Date();
+      const nextFriday = new Date(today);
       nextFriday.setDate(today.getDate() + ((5 - today.getDay() + 7) % 7 || 7));
       return nextFriday;
     }
 
-    function getWeekNumber(date) {
-      const start = new Date(date.getFullYear(), 0, 1);
-      const days = Math.floor((date - start) / (24 * 60 * 60 * 1000));
-      return Math.ceil((date.getDay() + 1 + days) / 7);
+    // Defina a primeira sexta-feira que iniciou o ciclo
+    const sextaInicial = new Date("2024-06-28"); // ajuste se necessário
+
+    // Função para calcular semanas passadas desde a sexta inicial
+    function getWeeksPassed(fromDate, toDate) {
+      const diffTime = toDate - fromDate;
+      const diffWeeks = Math.floor(diffTime / (7 * 24 * 60 * 60 * 1000));
+      return diffWeeks;
     }
 
-    const sexta = getNextFriday();
-    document.getElementById('data-sexta').textContent = sexta.toLocaleDateString('pt-BR');
+    const proximaSexta = getNextFriday();
+    const semanasPassadas = getWeeksPassed(sextaInicial, proximaSexta);
+    const duplaIndex = semanasPassadas % duplas.length;
 
-    const semanaIndex = getWeekNumber(sexta) % duplas.length;
-    document.getElementById('dupla').textContent = duplas[semanaIndex];
+    // Atualiza os dados no HTML
+    document.getElementById("data-sexta").textContent = proximaSexta.toLocaleDateString("pt-BR");
+    document.getElementById("dupla").textContent = duplas[duplaIndex];
 
-    const listaEl = document.getElementById('lista-duplas');
+    const listaEl = document.getElementById("lista-duplas");
     duplas.forEach((dupla, index) => {
-      const li = document.createElement('li');
+      const li = document.createElement("li");
       li.textContent = `${index + 1}. ${dupla}`;
       listaEl.appendChild(li);
     });
   </script>
 </body>
 </html>
-
